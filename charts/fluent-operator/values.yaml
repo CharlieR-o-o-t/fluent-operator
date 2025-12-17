@@ -394,6 +394,10 @@ fluentbit:
     # You can configure the stackdriver configuration here
 
   service:
+
+    hotReload:
+      ensureThreadSafety: "on"
+
     storage: {}
   # Remove the above storage section and uncomment below section if you want to configure file-system as storage for buffer
   #    storage:
