@@ -122,9 +122,9 @@ type Service struct {
 	EmitterStorageType string `json:"emitterStorageType,omitempty"`
 	// If true enable reloading via HTTP
 	HotReload *bool `json:"hotReload,omitempty"`
-	// HotReloadThreadSafety is enabled, shutdown will be postponed until all chunks are sent.
-	// enabled by default.
-	HotReloadThreadSafety *bool `json:"hotReloadThreadSafety,omitempty"`
+	// When enabled, enabled, shutdown will be postponed until all chunks are sent.
+	// +kubebuilder:validation:Enum:=on;off
+	HotReloadThreadSafety string `json:"hotReloadThreadSafety,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -236,8 +236,8 @@ func (s *Service) Params() *params.KVs {
 	if s.HotReload != nil {
 		m.Insert("Hot_Reload", fmt.Sprint(*s.HotReload))
 
-		if s.HotReloadThreadSafety != nil {
-			m.Insert("Hot_Reload", fmt.Sprint(*s.HotReloadThreadSafety))
+		if s.HotReloadThreadSafety != "" {
+			m.Insert("Hot_Reload", fmt.Sprint(s.HotReloadThreadSafety))
 		}
 	}
 	return m

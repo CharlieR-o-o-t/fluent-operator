@@ -14,11 +14,11 @@ spec:
   service:
     parsersFile: /fluent-bit/etc/parsers.conf
     httpServer: true
+    hotReloadThreadSafety: {{ .Values.fluentbit.service.hotReload.ensureThreadSafety | quote }}
     {{- with .Values.fluentbit.logLevel }}
     logLevel: {{ . | quote }}
     {{- end }}
     {{- with .Values.fluentbit.service.storage }}
-    HotReloadThreadSafety: {{ .Values.fluentbit.service.hotReload.ensureThreadSafety  }}
     storage:
       {{- toYaml . | nindent 6 }}
     {{- end }}
